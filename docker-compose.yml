@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build: ./web          
+    image: "drs_web:web"  
+    ports:               
+      - 80:80
+      - 443:443
+    links:                
+      - "db:db_container"
+    container_name: "drs_web_container" 
+  db:
+    build: ./db
+    image: "drs_db:db"
+    ports:
+      - 4306:3306
+    expose:               
+      - 3306
+    container_name: "drs_db_container"
+    volumes:              
+      - db_data:/var/lib/mysql       
+
+volumes:
+  db_data:
